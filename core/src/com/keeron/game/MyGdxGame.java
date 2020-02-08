@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.keeron.game.Screens.PlayScreen;
 
 public class MyGdxGame extends Game {
+	public static int V_WIDTH = 400;
+	public static int V_HEIGHT = 208;
+
 	public SpriteBatch batch;
 	
 	@Override
