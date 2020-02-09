@@ -9,8 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.keeron.game.Screens.PlayScreen;
 
 public class MyGdxGame extends Game {
-	public static int V_WIDTH = 400;
-	public static int V_HEIGHT = 208;
+	public static final int V_WIDTH = 400;
+	public static final int V_HEIGHT = 208;
+	public static final float PPM = 100;
 
 	public SpriteBatch batch;
 	
@@ -25,9 +26,8 @@ public class MyGdxGame extends Game {
 		super.render();
 	}
 	
-//	@Override
-//	public void dispose () {
-//		batch.dispose();
-//		img.dispose();
-//	}
+	@Override
+	public void dispose () {
+		batch.dispose();
+	}
 }
