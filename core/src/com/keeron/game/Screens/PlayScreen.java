@@ -5,22 +5,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.keeron.game.MyGdxGame;
 import com.keeron.game.Scenes.Hud;
 import com.keeron.game.Sprites.Player;
 import com.keeron.game.Tools.B2WorldCreator;
+import com.keeron.game.Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
     private MyGdxGame game;
@@ -63,6 +61,8 @@ public class PlayScreen implements Screen {
         new B2WorldCreator(world, map);
 
         player = new Player(world,this);
+
+        world.setContactListener(new WorldContactListener());
 
     }
 
@@ -110,7 +110,7 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
-        player.draw(game.batch);
+       // player.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
