@@ -1,14 +1,17 @@
 package com.keeron.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.keeron.game.MyGdxGame;
+import com.keeron.game.Scenes.Hud;
+import com.keeron.game.Screens.PlayScreen;
 
 public class Brick extends  InteractiveTileObject{
-    public Brick(World world, TiledMap map, Rectangle bounds){
-        super(world,map,bounds);
+    public Brick(PlayScreen screen, Rectangle bounds){
+        super(screen ,bounds);
         fixture.setUserData(this);
         setCategoryFilter(MyGdxGame.BRICK_BIT);
     }
@@ -18,5 +21,7 @@ public class Brick extends  InteractiveTileObject{
         Gdx.app.log("Brick","Collision");
         setCategoryFilter(MyGdxGame.DESTROYED_BIT);
         getCell().setTile(null);
+        Hud.addScore(200);
+        MyGdxGame.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
     }
 }

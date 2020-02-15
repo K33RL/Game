@@ -24,9 +24,9 @@ public class Player extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public Player(World world, PlayScreen screen) {
+    public Player(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
-        this.world = world;
+        this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
@@ -109,7 +109,11 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / MyGdxGame.PPM);
         fixtureDef.filter.categoryBits = MyGdxGame.MARIO_BIT;
-        fixtureDef.filter.maskBits = MyGdxGame.DEFAULT_BIT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT;
+        fixtureDef.filter.maskBits = MyGdxGame.GROUND_BIT |
+                MyGdxGame.COIN_BIT |
+                MyGdxGame.BRICK_BIT |
+                MyGdxGame.ENEMY_BIT |
+                MyGdxGame.OBJECT_BIT;
 
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef);

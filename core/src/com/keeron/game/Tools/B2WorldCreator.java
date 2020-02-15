@@ -6,12 +6,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.keeron.game.MyGdxGame;
+import com.keeron.game.Screens.PlayScreen;
 import com.keeron.game.Sprites.Brick;
 import com.keeron.game.Sprites.Coin;
 
 public class B2WorldCreator {
-    public B2WorldCreator(World world, TiledMap map) {
-
+    public B2WorldCreator(PlayScreen screen) {
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
         BodyDef bodyDef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
@@ -38,19 +40,20 @@ public class B2WorldCreator {
             body = world.createBody(bodyDef);
             shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, (rect.getHeight() / 2) / MyGdxGame.PPM);
             fdef.shape = shape;
+            fdef.filter.categoryBits = MyGdxGame.OBJECT_BIT;
             body.createFixture(fdef);
         }
 
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Brick(world, map, rect);
+            new Brick(screen, rect);
         }
 
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Coin(world, map, rect);
+            new Coin(screen, rect);
         }
     }
 }
